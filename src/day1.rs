@@ -33,6 +33,6 @@ impl AOC for Day1 {
                 }
             }
         }
-        panic!("Error solving day 1 part 1. Iterated all expenses pairwise; none summed to 2020");
+        panic!("Error solving day 1 part 2. Iterated all expenses triplet-wise; none summed to 2020");
     }
 }
