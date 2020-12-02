@@ -3,6 +3,7 @@ use structopt::StructOpt;
 
 mod day0;
 mod day1;
+mod day2;
 
 #[derive(StructOpt, Debug)]
 struct CLI {
@@ -34,20 +35,21 @@ fn main() {
     println!("Part 2 solution: {}", solver.solve_part_2());
 }
 
-fn get_solver(day: u8, input: &String) -> Result<Box<dyn AOC>, ()> {
+fn get_solver(day: u8, input: &String) -> Result<Box<dyn AOC>, &str> {
 
     Ok(
         match day {
-            0 => day0::Day0::new(input),
-            1 => day1::Day1::new(input),
-            _ => Err(())?
+            0 => day0::Day0::new(input)?,
+            1 => day1::Day1::new(input)?,
+            2 => day2::Day2::new(input)?,
+            _ => Err("invalid day specified")?
         }
     )
 }
 
 /// Something that can build an AOC instance
 pub trait AOCBuilder {
-    fn new(_: &String) -> Box<dyn AOC>;
+    fn new(_: &String) -> Result<Box<dyn AOC>, &str>;
 }
 
 /// An instance of an AOC puzzle with methods to solve each part.

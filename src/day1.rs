@@ -33,11 +33,11 @@ impl AOC for Day1 {
 }
 
 impl AOCBuilder for Day1 {
-    fn new(input: &String) -> Box<dyn AOC> {
-        Box::new(
+    fn new(input: &String) -> Result<Box<dyn AOC>, &str> {
+        Ok(Box::new(
             Self {
                 expenses: input.lines().map(|l| u32::from_str_radix(l, 10).expect("input should be valid")).collect()
             }
-        ) as Box<dyn AOC>
+        ) as Box<dyn AOC>)
     }
 }

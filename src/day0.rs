@@ -24,8 +24,8 @@ impl AOC for Day0 {
 }
 
 impl AOCBuilder for Day0 {
-    fn new(_: &String) -> Box<dyn AOC> {
+    fn new(_: &String) -> Result<Box<dyn AOC>, &str> {
         //TODO actual parser
-        Box::new(Self {a: 0, b: 1, c: 2, d: 4}) as Box<dyn AOC>
+        Ok(Box::new(Self {a: 0, b: 1, c: 2, d: 4}) as Box<dyn AOC>)
     }
 }
