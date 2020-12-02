@@ -2,15 +2,10 @@ use crate::AOC;
 
 /// Solver for Day 1
 pub struct Day1 {
-    expenses: Vec<u32>
+    pub expenses: Vec<u32>
 }
 
 impl AOC for Day1 {
-    fn new_with_input(input: &String) -> Self {
-        Self {
-            expenses: input.lines().map(|l| u32::from_str_radix(l, 10).expect("input should be valid")).collect()
-        }
-    }
     /// Find the two expenses that sum to 2020 and return their product as a string
     fn solve_part_1(&self) -> String {
         for i in &self.expenses {
