@@ -38,9 +38,6 @@ impl AocBuilder for Day2 {
         for l in input.lines() {
             passwords.push(parse(l)?);
         }
-        for (policy, password) in &passwords {
-            println!("{:?}, {}", policy, password);
-        }
         Ok(Self {passwords})
     }
 }
@@ -66,7 +63,6 @@ fn parse(line: &str) -> Result<Pair, &str> {
 fn passes_sled_rules(pair: &Pair) -> bool {
     let (policy, password) = pair;
     let occurences = password.chars().filter(|c| c == &policy.letter).count();
-    println!("Number of occurences: {}", occurences);
     (policy.min as usize) <= occurences && occurences <= (policy.max as usize)
 }
 
@@ -76,8 +72,6 @@ fn passes_toboggan_rules(pair: &Pair) -> bool {
     // Grab characters. Indices are off by one because problem is worded in 1-based indexing
     let first = password.chars().nth((policy.min - 1).into()).expect("First character index is valid");
     let second = password.chars().nth((policy.max - 1).into()).expect("Second character index is valid");
-
-    println!("{:?} Password: {}, First: {}, second: {}", policy, password, first, second);
 
     (first == policy.letter || second == policy.letter) && first != second
 }
