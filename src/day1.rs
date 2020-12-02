@@ -2,7 +2,7 @@ use crate::{Aoc, AocBuilder};
 
 /// Solver for Day 1
 pub struct Day1 {
-    expenses: Vec<u32>
+    expenses: Vec<u32>,
 }
 
 impl Aoc for Day1 {
@@ -28,16 +28,19 @@ impl Aoc for Day1 {
                 }
             }
         }
-        panic!("Error solving day 1 part 2. Iterated all expenses triplet-wise; none summed to 2020");
+        panic!(
+            "Error solving day 1 part 2. Iterated all expenses triplet-wise; none summed to 2020"
+        );
     }
 }
 
 impl AocBuilder for Day1 {
     fn new(input: &String) -> Result<Self, &str> {
-        Ok(
-            Self {
-                expenses: input.lines().map(|l| u32::from_str_radix(l, 10).expect("input should be valid")).collect()
-            }
-        )
+        Ok(Self {
+            expenses: input
+                .lines()
+                .map(|l| u32::from_str_radix(l, 10).expect("input should be valid"))
+                .collect(),
+        })
     }
 }

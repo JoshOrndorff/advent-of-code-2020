@@ -1,4 +1,3 @@
-
 mod day0;
 mod day1;
 mod day2;
@@ -9,7 +8,9 @@ pub use day2::Day2;
 
 /// Something that can build an AOC instance
 pub trait AocBuilder {
-    fn new(_: &String) -> Result<Self, &str> where Self: Sized;
+    fn new(_: &String) -> Result<Self, &str>
+    where
+        Self: Sized;
 }
 
 /// An instance of an AOC puzzle with methods to solve each part.

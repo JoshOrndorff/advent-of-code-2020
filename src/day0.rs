@@ -26,6 +26,11 @@ impl Aoc for Day0 {
 impl AocBuilder for Day0 {
     fn new(_: &String) -> Result<Self, &str> {
         //TODO actual parser
-        Ok(Self {a: 0, b: 1, c: 2, d: 4})
+        Ok(Self {
+            a: 0,
+            b: 1,
+            c: 2,
+            d: 4,
+        })
     }
 }
