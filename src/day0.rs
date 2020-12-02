@@ -1,4 +1,4 @@
-use crate::AOC;
+use crate::{AOC, AOCBuilder};
 
 /// An example solver to make sure the cli works
 /// The example problem is as follows
@@ -6,10 +6,10 @@ use crate::AOC;
 /// Part 1: Sum all four numbers
 /// Part 2: calculate ac + bd
 pub struct Day0 {
-    pub a: u8,
-    pub b: u8,
-    pub c: u8,
-    pub d: u8,
+    a: u8,
+    b: u8,
+    c: u8,
+    d: u8,
 }
 
 impl AOC for Day0 {
@@ -20,5 +20,12 @@ impl AOC for Day0 {
     /// Get the solution to part 2
     fn solve_part_2(&self) -> String {
         todo!()
+    }
+}
+
+impl AOCBuilder for Day0 {
+    fn new(_: &String) -> Box<dyn AOC> {
+        //TODO actual parser
+        Box::new(Self {a: 0, b: 1, c: 2, d: 4}) as Box<dyn AOC>
     }
 }

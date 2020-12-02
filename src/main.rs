@@ -38,29 +38,23 @@ fn get_solver(day: u8, input: &String) -> Result<Box<dyn AOC>, ()> {
 
     Ok(
         match day {
-            0 => Box::new(day0::Day0{ a: 1, b: 2, c: 3, d: 4 }) as Box<dyn AOC>,
-            1 => Box::new(day1::Day1{
-                expenses: input.lines().map(|l| u32::from_str_radix(l, 10).expect("input should be valid")).collect()
-            })as Box<dyn AOC>,
+            0 => day0::Day0::new(input),
+            1 => day1::Day1::new(input),
             _ => Err(())?
         }
     )
 }
 
-// Maybe this is the long term solution to having the parsing happen in the individual days
+/// Something that can build an AOC instance
 pub trait AOCBuilder {
     fn new(_: &String) -> Box<dyn AOC>;
 }
 
+/// An instance of an AOC puzzle with methods to solve each part.
 pub trait AOC {
     // The type in which the answer will be returned.
     //type Solution: Display;
 
-    // Create a new instance of the solver with the given string input
-    // I removed this because in order to do dynamic dispatch all functions have to be methods.
-    // One option is to have a method called initialize for reinitialize or something.
-    // but for now I'll just keep it simple.
-    //fn new_with_input(_: &String) -> Self;
     /// Get the solution to part 1
     fn solve_part_1(&self) -> String;
     /// Get the solution to part 2

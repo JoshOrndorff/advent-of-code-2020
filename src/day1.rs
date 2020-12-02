@@ -1,8 +1,8 @@
-use crate::AOC;
+use crate::{AOC, AOCBuilder};
 
 /// Solver for Day 1
 pub struct Day1 {
-    pub expenses: Vec<u32>
+    expenses: Vec<u32>
 }
 
 impl AOC for Day1 {
@@ -29,5 +29,15 @@ impl AOC for Day1 {
             }
         }
         panic!("Error solving day 1 part 2. Iterated all expenses triplet-wise; none summed to 2020");
+    }
+}
+
+impl AOCBuilder for Day1 {
+    fn new(input: &String) -> Box<dyn AOC> {
+        Box::new(
+            Self {
+                expenses: input.lines().map(|l| u32::from_str_radix(l, 10).expect("input should be valid")).collect()
+            }
+        ) as Box<dyn AOC>
     }
 }
