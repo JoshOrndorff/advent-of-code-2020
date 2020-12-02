@@ -27,3 +27,4 @@ I'm trying to experiment with new techniques to improve my Rust chops.
 
 Aspirational:
 * Use wasm bindgen and make a website
+* Write a few parsers with nom
