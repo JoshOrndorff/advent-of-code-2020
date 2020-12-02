@@ -1,4 +1,4 @@
-use crate::{AOC, AOCBuilder};
+use crate::{Aoc, AocBuilder};
 
 #[derive(Debug)]
 pub struct Policy {
@@ -13,7 +13,7 @@ pub struct Day2 {
     passwords: Vec<Pair>
 }
 
-impl AOC for Day2 {
+impl Aoc for Day2 {
     /// Get the solution to part 1
     fn solve_part_1(&self) -> String {
         self.passwords
@@ -32,8 +32,8 @@ impl AOC for Day2 {
     }
 }
 
-impl AOCBuilder for Day2 {
-    fn new(input: &String) -> Result<Box<dyn AOC>, &str> {
+impl AocBuilder for Day2 {
+    fn new(input: &String) -> Result<Self, &str> {
         let mut passwords = Vec::new();
         for l in input.lines() {
             passwords.push(parse(l)?);
@@ -41,7 +41,7 @@ impl AOCBuilder for Day2 {
         for (policy, password) in &passwords {
             println!("{:?}, {}", policy, password);
         }
-        Ok(Box::new(Self {passwords}) as Box<dyn AOC>)
+        Ok(Self {passwords})
     }
 }
 

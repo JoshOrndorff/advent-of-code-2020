@@ -1,11 +1,11 @@
-use crate::{AOC, AOCBuilder};
+use crate::{Aoc, AocBuilder};
 
 /// Solver for Day 1
 pub struct Day1 {
     expenses: Vec<u32>
 }
 
-impl AOC for Day1 {
+impl Aoc for Day1 {
     /// Find the two expenses that sum to 2020 and return their product as a string
     fn solve_part_1(&self) -> String {
         for i in &self.expenses {
@@ -32,12 +32,12 @@ impl AOC for Day1 {
     }
 }
 
-impl AOCBuilder for Day1 {
-    fn new(input: &String) -> Result<Box<dyn AOC>, &str> {
-        Ok(Box::new(
+impl AocBuilder for Day1 {
+    fn new(input: &String) -> Result<Self, &str> {
+        Ok(
             Self {
                 expenses: input.lines().map(|l| u32::from_str_radix(l, 10).expect("input should be valid")).collect()
             }
-        ) as Box<dyn AOC>)
+        )
     }
 }

@@ -1,4 +1,4 @@
-use crate::{AOC, AOCBuilder};
+use crate::{Aoc, AocBuilder};
 
 /// An example solver to make sure the cli works
 /// The example problem is as follows
@@ -12,7 +12,7 @@ pub struct Day0 {
     d: u8,
 }
 
-impl AOC for Day0 {
+impl Aoc for Day0 {
     /// Get the solution to part 1
     fn solve_part_1(&self) -> String {
         format!("{}", self.a + self.b + self.c + self.d)
@@ -23,9 +23,9 @@ impl AOC for Day0 {
     }
 }
 
-impl AOCBuilder for Day0 {
-    fn new(_: &String) -> Result<Box<dyn AOC>, &str> {
+impl AocBuilder for Day0 {
+    fn new(_: &String) -> Result<Self, &str> {
         //TODO actual parser
-        Ok(Box::new(Self {a: 0, b: 1, c: 2, d: 4}) as Box<dyn AOC>)
+        Ok(Self {a: 0, b: 1, c: 2, d: 4})
     }
 }

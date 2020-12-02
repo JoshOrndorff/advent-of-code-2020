@@ -35,25 +35,25 @@ fn main() {
     println!("Part 2 solution: {}", solver.solve_part_2());
 }
 
-fn get_solver(day: u8, input: &String) -> Result<Box<dyn AOC>, &str> {
+fn get_solver(day: u8, input: &String) -> Result<Box<dyn Aoc>, &str> {
 
     Ok(
         match day {
-            0 => day0::Day0::new(input)?,
-            1 => day1::Day1::new(input)?,
-            2 => day2::Day2::new(input)?,
+            0 => Box::new(day0::Day0::new(input)?) as Box<dyn Aoc>,
+            1 => Box::new(day1::Day1::new(input)?) as Box<dyn Aoc>,
+            2 => Box::new(day2::Day2::new(input)?) as Box<dyn Aoc>,
             _ => Err("invalid day specified")?
         }
     )
 }
 
 /// Something that can build an AOC instance
-pub trait AOCBuilder {
-    fn new(_: &String) -> Result<Box<dyn AOC>, &str>;
+pub trait AocBuilder {
+    fn new(_: &String) -> Result<Self, &str> where Self: Sized;
 }
 
 /// An instance of an AOC puzzle with methods to solve each part.
-pub trait AOC {
+pub trait Aoc {
     // The type in which the answer will be returned.
     //type Solution: Display;
 
