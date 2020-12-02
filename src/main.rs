@@ -45,6 +45,8 @@ fn main() {
 }
 
 pub trait AOC {
+    /// The type in which the answer will be returned.
+    //type Solution: Display;
     /// Create a new instance of the solver with the given string input
     fn new_with_input(_: &String) -> Self;
     /// Get the solution to part 1
