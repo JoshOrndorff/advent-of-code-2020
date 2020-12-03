@@ -18,6 +18,7 @@ pub trait AocBuilder {
 /// An instance of an AOC puzzle with methods to solve each part.
 pub trait Aoc {
     // The type in which the answer will be returned.
+    // I couldn't figure out how to do dynamic dispatch in this case.
     //type Solution: Display;
 
     /// Get the solution to part 1
