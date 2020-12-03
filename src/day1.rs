@@ -44,3 +44,24 @@ impl AocBuilder for Day1 {
         })
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn get_test_problem() -> Day1 {
+        Day1::new(&"1721\n979\n366\n299\n675\n1456".to_string()).expect("Test input is valid")
+    }
+
+    #[test]
+    fn part_one() {
+        let solution = get_test_problem().solve_part_1();
+        assert_eq!(solution, "514579");
+    }
+
+    #[test]
+    fn part_two() {
+        let solution = get_test_problem().solve_part_2();
+        assert_eq!(solution, "241861950");
+    }
+}
