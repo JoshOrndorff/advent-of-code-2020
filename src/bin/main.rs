@@ -29,7 +29,7 @@ fn main() {
     let solver =
         get_solver(params.day, &input).expect(&format!("Invalid day specified: {}", params.day));
 
-    println!("Solving day {} with input: {}", params.day, &input);
+    println!("Solving day {}", params.day);
 
     println!("Part 1 solution: {}", solver.solve_part_1());
     println!("Part 2 solution: {}", solver.solve_part_2());
@@ -41,6 +41,8 @@ fn get_solver(day: u8, input: &String) -> Result<Box<dyn Aoc>, &str> {
         1 => Box::new(Day1::new(input)?) as Box<dyn Aoc>,
         2 => Box::new(Day2::new(input)?) as Box<dyn Aoc>,
         3 => Box::new(Day3::new(input)?) as Box<dyn Aoc>,
+
+        5 => Box::new(Day5::new(input)?) as Box<dyn Aoc>,
         _ => Err("invalid day specified")?,
     })
 }
