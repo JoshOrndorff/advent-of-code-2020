@@ -28,3 +28,6 @@ I'm trying to experiment with new techniques to improve my Rust chops.
 Aspirational:
 * Use wasm bindgen and make a website
 * Write a few parsers with nom
+* A macros. Two use cases so far:
+  * For the `mod`s and `use`s in `lib.rs`
+  * For the day matcher in `main.rs`
