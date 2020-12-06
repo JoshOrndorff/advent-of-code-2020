@@ -16,7 +16,20 @@ impl Aoc for Day5 {
     }
     /// Get the solution to part 2
     fn solve_part_2(&self) -> String {
-        todo!()
+
+        let mut sorted = self.seat_ids.clone();
+        sorted.sort();
+
+        let mut expected = sorted[0] - 1;
+
+        for id in &sorted {
+            expected += 1;
+            if id != &expected {
+                return expected.to_string()
+            }
+        }
+
+        panic!("Got to end of list without finding missing seat id");
     }
 }
 
