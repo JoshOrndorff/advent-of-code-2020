@@ -12,11 +12,14 @@ pub struct Day5 {
 impl Aoc for Day5 {
     /// Get the solution to part 1
     fn solve_part_1(&self) -> String {
-        self.seat_ids.iter().max().expect("At least one input supplied.").to_string()
+        self.seat_ids
+            .iter()
+            .max()
+            .expect("At least one input supplied.")
+            .to_string()
     }
     /// Get the solution to part 2
     fn solve_part_2(&self) -> String {
-
         let mut sorted = self.seat_ids.clone();
         sorted.sort();
 
@@ -25,7 +28,7 @@ impl Aoc for Day5 {
         for id in &sorted {
             expected += 1;
             if id != &expected {
-                return expected.to_string()
+                return expected.to_string();
             }
         }
 
@@ -35,7 +38,6 @@ impl Aoc for Day5 {
 
 impl AocBuilder for Day5 {
     fn new(input: &String) -> Result<Self, &str> {
-
         Ok(Self {
             seat_ids: input.lines().map(|l| seat_id(&l.to_string())).collect(),
         })
@@ -54,8 +56,6 @@ fn seat_id(code: &str) -> u16 {
     // Shift once back to the right to cancel the last shift in the loop.
     result >> 1
 }
-
-
 
 #[cfg(test)]
 mod tests {
