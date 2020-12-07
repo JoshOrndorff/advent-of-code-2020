@@ -1,4 +1,6 @@
-// My first go is 13. That seems too low. Let's look for a test case.
+// 3397 is too low
+// 3398 is also too low, although this one was just a guess anyway
+// 5000 is too high. Also a guess just to (hopefully) confirm that it is lower than part 1 (which it must be)
 
 use crate::{Aoc, AocBuilder};
 use std::collections::HashSet;
@@ -36,7 +38,25 @@ impl Aoc for Day6 {
     }
     /// Get the solution to part 2
     fn solve_part_2(&self) -> String {
-        todo!()
+        println!("Warning! Day 6 Part 2 does not solve my input, although it does solve the test case.");
+
+        let mut sum_of_all_groups = 0;
+        for group in &self.groups_answers {
+            println!("About to analyze group {:?}. Sum so far is {}", group, sum_of_all_groups);
+            let mut group_total = 0;
+            for letter in "abcdefghijklmnopqrstuvwxyz".chars() {
+                let mut everyone_has_this_letter = true;
+                for answers in group {
+                    everyone_has_this_letter = everyone_has_this_letter && answers.contains(&letter);
+                }
+                if everyone_has_this_letter {
+                    println!("Everyone has letter {}", letter);
+                    group_total += 1;
+                }
+            }
+            sum_of_all_groups += group_total;
+        }
+        sum_of_all_groups.to_string()
     }
 }
 
