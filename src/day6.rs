@@ -12,6 +12,10 @@ pub struct Day6 {
     /// Members of the group
     /// Answers given by a group member
     groups_answers: Vec<Vec<HashSet<char>>>,
+
+    // I wonder if the right solution to all my union issues below is making this a HashSet<&char>.
+    // I tried that briefly but retreated whe I saw that I needed a lifetime parameter. But maybe I just
+    // need to get familiar with that.
 }
 
 impl Aoc for Day6 {
@@ -63,6 +67,7 @@ impl Aoc for Day6 {
 impl AocBuilder for Day6 {
     fn new(input: &String) -> Result<Self, &str> {
         let groups_answers = input
+            .trim()
             .split("\n\n")
             .map(|group_str| {
                 group_str
