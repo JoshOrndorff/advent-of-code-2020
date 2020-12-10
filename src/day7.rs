@@ -38,7 +38,30 @@ impl Aoc for Day7 {
 
     /// Get the solution to part 2
     fn solve_part_2(&self) -> String {
-        todo!()
+        let total_count = self.count_inners(&"shiny gold".to_string());
+        (total_count - 1).to_string()
+    }
+
+}
+
+impl Day7 {
+    /// Recursive helper method to count how many total bags exist in a valid tree of the given outer color.
+    ///
+    /// This naively recomputes subtrees when they are visited. It could be improved by memoizing that data,
+    /// but it turned out that wasn't necessary for the input given.
+    fn count_inners(&self, target: &String) -> usize {
+        let pairs = self.rules.get(target).expect("target color is in ruleset");
+
+        // Initialize to 1 for this bag.
+        let mut total_inners = 1;
+        for (count, inner) in pairs {
+            println!("count here is {}", count);
+            total_inners += count * self.count_inners(inner);
+        }
+
+        println!("Finished counting for {}, count is {}", target, total_inners);
+
+        total_inners
     }
 }
 
@@ -50,10 +73,6 @@ fn find_all_outers(mut open: HashSet<String>, mut closed: HashSet<String>, rever
         Some(e) => e.to_string(),
         None => return closed,
     };
-
-    println!("Open set: {:?}", open);
-    println!("closed set {:?}", closed);
-    println!("current element {:?}\n", current);
 
     // Move the current element from the open set to the colsed set.
     closed.insert(open.take(&current).expect("current element is in open set, or iterator wouldn't have supplied it."));
@@ -118,7 +137,7 @@ fn parse_pair(input: &str) -> (usize, String) {
 mod tests {
     use super::*;
 
-    fn get_test_problem() -> Day7 {
+    fn test_problem_1() -> Day7 {
         let example_input = "light red bags contain 1 bright white bag, 2 muted yellow bags.
 dark orange bags contain 3 bright white bags, 4 muted yellow bags.
 bright white bags contain 1 shiny gold bag.
@@ -133,7 +152,12 @@ dotted black bags contain no other bags.";
     }
 
     #[test]
-    fn abc_test_one() {
-        assert_eq!(get_test_problem().solve_part_1(), "4");
+    fn part_one() {
+        assert_eq!(test_problem_1().solve_part_1(), "4");
+    }
+
+    #[test]
+    fn first_part_two() {
+        assert_eq!(test_problem_1().solve_part_2(), "32");
     }
 }
