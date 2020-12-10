@@ -1,7 +1,7 @@
 
 use crate::{Aoc, AocBuilder};
 use std::collections::HashSet;
-
+use std::convert::TryInto;
 
 pub struct Day8 {
     /// The parsed input program
@@ -27,6 +27,7 @@ impl Machine {
         }
     }
 
+    /// Perform one step of execution, mutating the current instance
     fn step(&mut self) {
         match self.program[self.pc as usize] {
             (Opcode::Nop, _) => {
@@ -41,6 +42,32 @@ impl Machine {
             }
         }
     }
+
+    /// Execute the current instance until either an infinite loop occurs or the program exits normally
+    /// Return the exit reason and the accumulator value
+    fn execute(&mut self) -> (ExitReason, isize) {
+        let mut visited_instructions = HashSet::new();
+        let target_end_pc = self.program.len();
+        while self.pc != target_end_pc.try_into().unwrap() {
+
+            if visited_instructions.contains(&self.pc) {
+                return (ExitReason::InfiniteLoop, self.acc);
+            }
+
+            visited_instructions.insert(self.pc);
+
+            // println!("before step PC: {}, ACC: {}", machine.pc, machine.acc);
+            self.step();
+            // println!(" after step PC: {}, ACC: {}", machine.pc, machine.acc);
+        }
+
+        (ExitReason::Valid, self.acc)
+    }
+}
+
+enum ExitReason {
+    InfiniteLoop,
+    Valid,
 }
 
 impl Aoc for Day8 {
@@ -48,22 +75,43 @@ impl Aoc for Day8 {
     fn solve_part_1(&self) -> String {
         let mut machine = Machine::new(self.program.to_vec());
 
-        let mut visited_instructions = HashSet::new();
-        while !visited_instructions.contains(&machine.pc) {
-            visited_instructions.insert(machine.pc);
-            // println!("before step PC: {}, ACC: {}", machine.pc, machine.acc);
-            machine.step();
-
-            // println!(" after step PC: {}, ACC: {}", machine.pc, machine.acc);
-
+        match machine.execute() {
+            (ExitReason::InfiniteLoop, acc) => acc.to_string(),
+            (ExitReason::Valid, _) => panic!("part one is expected to have an infinite loop"),
         }
-
-        machine.acc.to_string()
 
     }
     /// Get the solution to part 2
     fn solve_part_2(&self) -> String {
-        todo!()
+        let mut hacked_program = self.program.clone();
+        // Loop through all valid mutations of the given program.
+        for i in 0..self.program.len() {
+            // Make the mutation
+            match self.program[i] {
+                (Opcode::Acc, _) => {
+                    continue;
+                },
+                (Opcode::Nop, arg) => {
+                    hacked_program[i] = (Opcode::Jmp, arg);
+                },
+                (Opcode::Jmp, arg) => {
+                    hacked_program[i] = (Opcode::Nop, arg);
+                }
+            }
+
+            // See if the hack fixes the program.
+            // If it does, return early, otherwise, undo the mutation for the next try
+            let mut machine = Machine::new(hacked_program.to_vec());
+            match machine.execute() {
+                (ExitReason::Valid, acc) => {
+                    return acc.to_string();
+                },
+                (ExitReason::InfiniteLoop, _) => {
+                    hacked_program[i] = self.program[i].clone();
+                },
+            }
+        }
+        panic!("Tried all mutations; didn't find a valid one.");
     }
 }
 
