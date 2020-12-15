@@ -9,8 +9,9 @@ mod day7;
 mod day8;
 mod day9;
 mod day10;
-// mod day 11;
+// mod day11;
 mod day12;
+mod day15;
 
 pub use day0::Day0;
 pub use day1::Day1;
@@ -25,6 +26,7 @@ pub use day9::Day9;
 pub use day10::Day10;
 // pub use day11::Day11;
 pub use day12::Day12;
+pub use day15::Day15;
 
 /// Something that can build an AOC instance
 pub trait AocBuilder {
