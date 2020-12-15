@@ -5,7 +5,6 @@ use crate::{Aoc, AocBuilder};
 
 pub struct Day10 {
     adapters: Vec<usize>,
-    //TODO should I calculate my devices input joltage?
 }
 
 impl Aoc for Day10 {
@@ -31,8 +30,42 @@ impl Aoc for Day10 {
 
     /// Get the solution to part 2
     fn solve_part_2(&self) -> String {
-        todo!()
+        how_many_ways(&self.adapters, 0, &mut HashMap::new()).to_string()
     }
+}
+
+/// Recursive function that determines how many different ways the given joltage adapters can be combined necessarily
+/// using the last one. The results are memoized as they are computed so that the same calculations are not made again later.
+fn how_many_ways(adapters: &[usize], current: usize, memoized: &mut HashMap<usize, usize>) -> usize {
+    // println!("Current: {}, Target: {}, Adapters Left: {:?}", current, target, adapters);
+
+    // First we check for an answer associated with the current joltage. If we know one, return it.
+    if let Some(answer) = memoized.get(&current) {
+        return *answer;
+    }
+
+    if adapters.len() == 0 {
+        return 1;
+    }
+
+    // We know we can always use the very next adapter, so no need to check.
+    let mut ways =  how_many_ways(&adapters[1..], adapters[0], memoized);
+
+    // Sometimes we can skip to the second adapter
+    if adapters.len() >= 2 && adapters[1] - current <= 3 {
+        ways += how_many_ways(&adapters[2..], adapters[1], memoized);
+
+        // Sometimes we can skip to the third. But only if skipping to the second worked.
+        if adapters.len() >= 3 && adapters[2] - current <= 3 {
+            ways += how_many_ways(&adapters[3..], adapters[2], memoized);
+
+            // We can never skip to the third because each adapter is unique and a max three-jolt difference is allowed.
+        }
+    }
+
+    // Update the memoization table and return the answer
+    memoized.insert(current, ways);
+    ways
 }
 
 impl AocBuilder for Day10 {
@@ -101,12 +134,22 @@ mod tests {
     }
 
     #[test]
-    fn test_one() {
+    fn day10_ex1_part1() {
         assert_eq!(example_one().solve_part_1(), (7*5).to_string());
     }
 
     #[test]
-    fn test_two() {
+    fn day10_ex1_part2() {
+        assert_eq!(example_one().solve_part_2(), "8");
+    }
+
+    #[test]
+    fn day10_ex2_part1() {
         assert_eq!(example_two().solve_part_1(), (22*10).to_string());
+    }
+
+    #[test]
+    fn day10_ex2_part2() {
+        assert_eq!(example_two().solve_part_2(), "19208");
     }
 }
