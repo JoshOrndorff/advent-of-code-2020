@@ -9,7 +9,7 @@ mod day7;
 mod day8;
 mod day9;
 mod day10;
-// mod day11;
+mod day11;
 mod day12;
 mod day15;
 
@@ -24,7 +24,7 @@ pub use day7::Day7;
 pub use day8::Day8;
 pub use day9::Day9;
 pub use day10::Day10;
-// pub use day11::Day11;
+pub use day11::Day11;
 pub use day12::Day12;
 pub use day15::Day15;
 

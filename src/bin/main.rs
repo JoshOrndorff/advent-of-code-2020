@@ -48,7 +48,7 @@ fn get_solver(day: u8, input: &String) -> Result<Box<dyn Aoc>, &str> {
         8 => Box::new(Day8::new(input)?) as Box<dyn Aoc>,
         9 => Box::new(Day9::new(input)?) as Box<dyn Aoc>,
         10 => Box::new(Day10::new(input)?) as Box<dyn Aoc>,
-        // 11 => Box::new(Day11::new(input)?) as Box<dyn Aoc>,
+        11 => Box::new(Day11::new(input)?) as Box<dyn Aoc>,
         12 => Box::new(Day12::new(input)?) as Box<dyn Aoc>,
         15 => Box::new(Day15::new(input)?) as Box<dyn Aoc>,
         _ => Err("invalid day specified")?,
